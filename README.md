@@ -119,8 +119,7 @@ Transform your finances with a dynamic and interactive payment strategy. Integra
 ![cli](./CreditScape_ORD.png)
 
 
- ### Front End Design Schema: 
- The command line interface has a structured user iterface flow: 
+ ### Front End Wireframe:  
 
 https://www.figma.com/file/7xG34iBgHUY9qWnEbleQJg/Untitled?type=whiteboard&node-id=0%3A1&t=eLtOtzlE8pjkfg0n-1
 
