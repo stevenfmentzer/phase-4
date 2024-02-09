@@ -45,8 +45,8 @@ Transform your finances with a dynamic and interactive payment strategy. Integra
 * `balance` must be a positive Float
 
 #### Incomes
-* `pay_value` must be greater than 0
-* `pay_freq` must be between 1-4 (payouts per month)
+* `pay_value` must be Float greater than 0
+* `pay_freq` must be Integer between 1-4 (payouts per month)
 
 #### Bills
 * `name` is String under 20 characters
