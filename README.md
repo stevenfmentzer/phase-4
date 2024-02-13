@@ -45,8 +45,8 @@ Transform your finances with a dynamic and interactive payment strategy. Integra
 * `balance` must be a positive Float
 
 #### Incomes
-* `pay_value` must be greater than 0
-* `pay_freq` must be between 1-4 (payouts per month)
+* `pay_value` must be Float greater than 0
+* `pay_freq` must be Integer between 1-4 (payouts per month)
 
 #### Bills
 * `name` is String under 20 characters
@@ -119,8 +119,7 @@ Transform your finances with a dynamic and interactive payment strategy. Integra
 ![cli](./CreditScape_ORD.png)
 
 
- ### Front End Design Schema: 
- The command line interface has a structured user iterface flow: 
+ ### Front End Wireframe:  
 
 https://www.figma.com/file/7xG34iBgHUY9qWnEbleQJg/Untitled?type=whiteboard&node-id=0%3A1&t=eLtOtzlE8pjkfg0n-1
 
