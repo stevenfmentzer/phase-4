@@ -57,7 +57,7 @@ Transform your finances with a dynamic and interactive payment strategy. Integra
 * `apr_rate` must be a positive float between 0-100, with a max of two decimal points
 
 #### Payments
-* `pay_value` must be a Decimal(?)
+* `pay_value` must be greater than 0
 
 ## Controllers
 ### API routes RESTful conventions
