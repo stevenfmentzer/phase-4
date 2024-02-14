@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 // Bill Form takes in prop: onSubmit(formData, 'bill_api_endpoint')
 function BillForm({ user, onSubmit }) {
   const [formData, setFormData] = useState({
-    user_id: `${user}`,
+    user_id: `${user.id}`,
     name: '',
     lender_name: '',
     description: '',

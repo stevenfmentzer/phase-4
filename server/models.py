@@ -94,7 +94,7 @@ class Bill(db.Model, SerializerMixin):
         elif key == 'pay_date':
             if isinstance(value, str): 
                 # Convert string to datetime.date object
-                value = datetime.strptime(value, '%m-%d-%Y').date()
+                value = datetime.strptime(value, '%Y-%m-%d').date()
             elif isinstance(value, datetime):
                 # Extract date component from datetime object
                 value = value.date()
@@ -120,6 +120,7 @@ class Bill(db.Model, SerializerMixin):
             except ValueError:
                 raise ValueError(f"{key} must be a valid float value")
         else:
+            value = float(value)
             if not 0 < value: 
                 raise ValueError(f"{key} must be a positive Float")
         return value
@@ -198,6 +199,7 @@ class Income(db.Model, SerializerMixin):
             if not 0 < value:
                 raise ValueError(f"{key} must be greater than 0")
         elif key == 'pay_freq':
+            value = float(value)
             if value and not 1 <= value <= 4: 
                 raise ValueError(f"{key} must be between 1-4")
         return value

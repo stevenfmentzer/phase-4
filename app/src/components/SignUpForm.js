@@ -24,13 +24,13 @@ function SignUpForm({ user, onLogin }) {
         const responseData = await response.json();
         console.log(`SUCCESSFUL POST:}`);
         console.log(responseData)
-
+        // IF REGISTRATION POST WAS SUCCESSFUL > LOGIN
         if (endpoint === "register") {
           console.log("RECIEVED NEW USER OBJECT:")
           console.log(responseData)
           const loginCredentials = {
-            username: responseData.username,
-            password: responseData.password
+            username: formData.username,
+            password: formData.password
           };
 
           console.log("LOGIN CREDENTIALS:")
@@ -62,9 +62,9 @@ function SignUpForm({ user, onLogin }) {
   return (
     <div>
       {numSubmit === 0 && <UserForm onSubmit={handleSubmit} />}
-      {numSubmit === 1 && <BillForm user={user} onSubmit={handleSubmit} />}
-      {numSubmit === 2 && <BankForm onSubmit={handleSubmit} />}
-      {numSubmit === 3 && <IncomeForm onSubmit={handleSubmit} />}
+      {user && numSubmit === 1 && <BillForm user={user} onSubmit={handleSubmit} />}
+      {user && numSubmit === 2 && <BankForm user={user} onSubmit={handleSubmit} />}
+      {user && numSubmit === 3 && <IncomeForm user={user} onSubmit={handleSubmit} />}
     </div>
   );
 }
