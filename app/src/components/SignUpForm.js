@@ -4,7 +4,7 @@ import BillForm from "./BillForm";
 import BankForm from "./BankForm";
 import IncomeForm from "./IncomeForm";
 
-function SignUpForm({ user, onLogin }) {
+function SignUpForm({ user, onLogin, setEnterSite }) {
     console.log("SIGN UP FORM")
   const [numSubmit, setNumSubmit] = useState(0);
   
@@ -57,6 +57,9 @@ function SignUpForm({ user, onLogin }) {
       setNumSubmit(numSubmit + 1);
     } catch (error) {
       console.error("Error:", error);
+    }
+    if (numSubmit === 4){
+      setEnterSite(true)
     }
   }
   return (

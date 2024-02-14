@@ -1,10 +1,12 @@
 import { React, useState, useEffect } from "react";
 import './App.css';
-import Login from './pages/Login.js';
 import NavBar from "./components/NavBar.js";
+import Login from './pages/Login.js';
+import CreditScape from './pages/CreditScape.js';
 
 function App() {
   const [user, setUser] = useState(null);
+  const [enterSite, setEnterSite] = useState(false);
 
   useEffect(() => {
     // auto-login
@@ -25,19 +27,23 @@ function App() {
 
   function handleLogout() {
     fetch('http://localhost:5555/logout')
-    .then(r => setUser(null));
+    .then(r => setUser(null))
+    setEnterSite(false)
   }
 
   return (
     <div>
       <NavBar user={user} handleLogout={handleLogout}/>
-      {user ? (
+      {enterSite ? (
       <></>
        ) : (
       <>
-      <Login user={user} onLogin={setUser}/>
+      <Login user={user} onLogin={setUser} setEnterSite={setEnterSite}/>
       </>
        )}
+       {user &&
+         <CreditScape/>
+        }
     </div>
   )
 }

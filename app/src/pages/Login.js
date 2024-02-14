@@ -3,7 +3,7 @@ import SignUpForm from "../components/SignUpForm";
 import LoginForm from "../components/LoginForm";
 
 
-function Login({ user, onLogin }) {
+function Login({ user, onLogin, setEnterSite }) {
   const [showLogin, setShowLogin] = useState(true);
 
   return (
@@ -11,7 +11,7 @@ function Login({ user, onLogin }) {
       -----
       {showLogin ? (
         <>
-          <LoginForm user={user} onLogin={onLogin} />
+          <LoginForm user={user} onLogin={onLogin} setEnterSite={setEnterSite} />
           <div />
           <p>
             Don't have an account? &nbsp;
@@ -22,14 +22,16 @@ function Login({ user, onLogin }) {
         </>
       ) : (
         <>
-          <SignUpForm user={user} onLogin={onLogin} />
+          <SignUpForm user={user} onLogin={onLogin} setEnterSite={setEnterSite} />
           <div />
+          {!user &&
           <p>
             Already have an account? &nbsp;
             <button color="secondary" onClick={() => setShowLogin(true)}>
               Log In
             </button>
           </p>
+          }
         </>
       )}
     </div>

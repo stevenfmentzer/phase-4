@@ -13,7 +13,7 @@ function NavBar({ user, handleLogout }) {
     </h1>
      {user ? (
       <>
-        <h4> Welcome {user.first_name} {user.last_name}</h4>
+        <p> Welcome {user.first_name} {user.last_name}</p>
         <button to="/" onClick={handleLogout}>Logout</button>
       </>
     ) : (
