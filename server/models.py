@@ -1,7 +1,7 @@
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.orm import validates
 from sqlalchemy.ext.hybrid import hybrid_property
-from datetime import datetime
+from datetime import date, datetime
 #Import database and bcrypt from config.py
 from config import db, bcrypt
 
@@ -86,17 +86,22 @@ class Bill(db.Model, SerializerMixin):
                 raise ValueError(f"{key} must be between 1-50 characters")
         return value
 
-    @validates('bill_type','pay_date')
+    @validates('bill_type', 'pay_date')
     def validate_bill_info(self, key, value):
         if key == 'bill_type':
+            # Add any specific validation for bill_type here
             pass
         elif key == 'pay_date':
             if isinstance(value, str): 
+                # Convert string to datetime.date object
                 value = datetime.strptime(value, '%m-%d-%Y').date()
             elif isinstance(value, datetime):
+                # Extract date component from datetime object
                 value = value.date()
-            else: 
-                raise ValueError(f"ERROR : {key} must be of type DateTime")
+            elif not isinstance(value, date):
+                # Raise an error if value is not a datetime.date object
+                raise ValueError(f"ERROR: {key} must be of type datetime.date.....")
+            # No need for further conversion if value is already a datetime.date object
         return value
 
     @validates('balance_init','balance_remain','min_pay_value','apr_rate')
@@ -234,11 +239,15 @@ class Payment(db.Model, SerializerMixin):
     def validate_pay_date(self, key, value):
         if key == 'pay_date':
             if isinstance(value, str): 
+                # Convert string to datetime.date object
                 value = datetime.strptime(value, '%m-%d-%Y').date()
             elif isinstance(value, datetime):
+                # Extract date component from datetime object
                 value = value.date()
-            else: 
-                raise ValueError(f"ERROR : {key} must be of type DateTime")
+            elif not isinstance(value, date):
+                # Raise an error if value is not a datetime.date object
+                raise ValueError(f"ERROR: {key} must be of type datetime.date.....")
+            # No need for further conversion if value is already a datetime.date object
         return value
     
     def __repr__(self):

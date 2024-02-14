@@ -111,6 +111,15 @@ Transform your finances with a dynamic and interactive payment strategy. Integra
     PATCH/payment/<int:id>
     DELETE/payment/<int:id>
 ```
+
+### React Routes
+```
+Home  --- (rootRoute)
+Food Add Form --- /food/new  
+food list --- /food
+food detail --- /food/:id
+food edit -- /food/:id/edit
+```
 ## Data Flow Visualizations
 
  ### ORD Database Table: 

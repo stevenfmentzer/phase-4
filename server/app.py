@@ -21,17 +21,18 @@ def login():
         form_data = request.get_json()
     else: 
         form_data = request.form
-
+    print(form_data)
     username = form_data['username']
     password = form_data['password']
 
     user = User.query.filter(User.username == username).first()
-
+    print(user)
     if user.authenticate(password):
         session["user"] = user.id
         response = make_response(user.to_dict(),200)
-    
-        response = make_response(user.to_dict(),200)
+        print(session["user"])
+        print("SESSION>USER SET")
+
     else:
         response = make_response({"Error": "Not valid password"}, 400)
     return response
@@ -43,6 +44,16 @@ def logout():
     # Return to home screen
     return redirect(url_for('home'))
 
+@app.route('/session')
+def check_session():
+
+    if session["user"]:
+        print('SESSION CHEKER: USER FOUND')
+        user = User.query.filter(User.id == session["user"]).first()
+        return user.to_dict()
+    else:
+        return {"session": "user not found"}, 404
+    
 
 #### USER #### 
 @app.route('/register', methods=['POST'])
@@ -72,7 +83,7 @@ def register():
             db.session.add(new_user)
             db.session.commit()
 
-            response = make_response(new_user.to_dict(only=('first_name','last_name')), 201)
+            response = make_response(new_user.to_dict(only=('id','first_name','last_name')), 201)
     except Exception as e:
         print("Exception:", e)
         response = make_response({"ERROR" : e },404)
@@ -121,12 +132,14 @@ def user_bills():
                 bills = [bill.to_dict() for bill in Bill.query.filter(Bill.user_id == session["user"]).all()]
                 response = make_response(bills, 200)
             elif request.method == 'POST':
+                print("POST")
                 if request.headers.get("Content-Type") == 'application/json':
                     form_data = request.get_json()
                 else: 
                     form_data = request.form
 
-                new_bill = Bill(user_id = session["user"],
+                print("ADDING")
+                new_bill = Bill(user_id = form_data['user_id'],
                                 name = form_data['name'],
                                 lender_name = form_data['lender_name'],
                                 description = form_data['description'],
