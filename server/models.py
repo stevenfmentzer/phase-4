@@ -37,7 +37,7 @@ class User(db.Model, SerializerMixin):
 
     @validates('first_name', 'last_name')
     def validate_name(self, key, value):
-        value = value.strip()
+        value = value.strip().title()
         if not 1 <= len(value) <= 20:
             raise ValueError(f"{key} must be a String between 1-20 characters")
         return value 

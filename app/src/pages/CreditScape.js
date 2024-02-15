@@ -43,26 +43,41 @@ function CreditScape({ user }){
         fetch(`http://localhost:5555/payments/${user.id}`)
             .then(response => {
         if (response.ok) {
-            response.json().then(setPaymentList)}})
+            response.json().then(data => {
+            // Sort paymentList by pay_date
+            const sortedPaymentList = data.sort((a, b) => new Date(a.pay_date) - new Date(b.pay_date));
+            setPaymentList(sortedPaymentList)})}})
     .catch(error => {
     console.error('Error fetching income list:', error)})
     }, [user.id]);
 
+    function handleClick(e){
+      console.log("click")
+    }
 
     return(
       <>
         <div>CreditScape Main Body</div>
+        <button color="secondary" onClick={handleClick}>
+              Add Bill
+            </button>
+            <button color="secondary" onClick={handleClick}>
+              Add Bank
+            </button>
+            <button color="secondary" onClick={handleClick}>
+              Add Job
+            </button>
+          <div>
         <div>
           {/* Render billList */}
-          <h2>Bill List</h2>
-          <div>
+          <h2>Bills</h2>
             {billList.map((bill, index) => (
               <BillCard key={index} bill={bill} />
             ))}
           </div>
 
           {/* Render bankList */}
-          <h2>Bank List</h2>
+          <h2>Banks</h2>
           <div>
             {bankList.map((bank, index) => (
               <BankCard key={index} bank={bank} />
@@ -70,7 +85,7 @@ function CreditScape({ user }){
           </div>
 
           {/* Render incomeList */}
-          <h2>Income List</h2>
+          <h2>Jobs</h2>
           <div>
             {incomeList.map((income, index) => (
               <IncomeCard key={index} income={income} />
@@ -78,10 +93,10 @@ function CreditScape({ user }){
           </div>
 
           {/* Render paymentList */}
-          <h2>Payment List</h2>
+          <h2>Planned Payments</h2>
           <div>
             {paymentList.map((payment, index) => (
-              <PaymentCard key={index} payment={payment} />
+              <PaymentCard key={index} payment={payment.pay_value} paymentForm={payment} />
             ))}
           </div>
         </div>

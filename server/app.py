@@ -1,4 +1,4 @@
-from flask import Flask, abort, session, redirect, url_for, make_response, request
+from flask import Flask, abort, session, redirect, url_for, make_response, request, jsonify
 from models import db, User, BankAccount, Bill, Income, Payment
 #Import database and application from config.py
 from config import app, db
@@ -45,15 +45,29 @@ def logout():
     # Return to home screen
     return redirect(url_for('home'))
 
-@app.route('/session')
+@app.route('/session', methods=['GET', 'POST'])
 def check_session():
+    if request.method == 'POST':
+        data = request.json  # Assuming the client sends JSON data
+        username = data.get('username')
+        password = data.get('password')
 
-    if session["user"]:
-        print('SESSION CHEKER: USER FOUND')
-        user = User.query.filter(User.id == session["user"]).first()
-        return user.to_dict()
-    else:
-        return {"session": "user not found"}, 404
+        # Validate username and password (e.g., check against database)
+        user = User.query.filter(User.username == username).first()
+        if user and user.authenticate(password):  # Example: assuming User model has a check_password method
+            session['user'] = user.id  # Set user ID in session
+            response = make_response(user.to_dict(),200)
+        else:
+            return jsonify({'success': False, 'message': 'Invalid username or password'}), 401
+
+    elif request.method == 'GET':
+        # Handle the GET request (e.g., checking user session)
+        if 'user' in session:
+            user = User.query.get(session['user'])
+            if user:
+                return jsonify({'success': True, 'message': 'User session found', 'user': user.to_dict()}), 200
+        return jsonify({'success': False, 'message': 'No user session found'}), 404
+    return response
     
 
 #### USER #### 

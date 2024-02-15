@@ -13,13 +13,20 @@ function LoginForm({ user, onLogin, setEnterSite }){
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, password })})
-        .then((r) => {
+        body: JSON.stringify({ username, password })
+      })
+      .then((r) => {
         setIsLoading(false);
         if (r.ok) {
-          r.json().then((user) => onLogin(user))
-          setEnterSite(true)}
-        })}
+          r.json().then((user) => {
+            localStorage.setItem('authToken', user.token); // Store the token in localStorage
+            onLogin(user);
+            setEnterSite(true);
+          });
+        }
+      });
+    }
+    
 
     return(
         <form onSubmit={handleSubmit}>

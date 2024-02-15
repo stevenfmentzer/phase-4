@@ -61,13 +61,12 @@ function SignUpForm({ user, onLogin, setEnterSite }) {
           console.log("INSIDE BILLDATA SETTER")
           setBillData(responseData)
         }
-        
-        // Increment numSubmit to display the next form
-        setNumSubmit(numSubmit + 1);
       }
     } catch (error) {
       console.error("Error:", error);
     }
+    // Increment numSubmit to display the next form
+    setNumSubmit(numSubmit + 1);
   };
 
   useEffect(() => {

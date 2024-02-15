@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { addMonths, format, parseISO } from 'date-fns';
 import PaymentCard from '../components/PaymentCard';
 
 function PaymentForm({ user, onSubmit, billData }) {
@@ -27,22 +28,26 @@ function PaymentForm({ user, onSubmit, billData }) {
       .then(data => {
         setBankAccounts(data);
         console.log("Bank accounts data:", data);
-        // Create payments Template to avoid duplicating the same information
-        const paymentTemplate = {
-          bill_id: `${billData.id}`,
-          bill_name: `${billData.name}`,
-          bank_account_id: `${bankAccounts[0].id}`,
-          bank_account_name: `${bankAccounts[0].name}`,
-          pay_date: `${billData.pay_date}`, 
-          pay_value: '', 
-        };
-        // Set Template to Payment Form Data
-        setPaymentForm(paymentTemplate);
       })
       .catch(error => {
         console.error('Error fetching bank accounts:', error);
       });
   }, [user.id]);
+  
+  useEffect(() => {
+    if (bankAccounts.length > 0 && billData) {
+      const paymentTemplate = {
+        bill_id: `${billData.id}`,
+        bill_name: `${billData.name}`,
+        bank_account_id: `${bankAccounts[0].id}`,
+        bank_account_name: `${bankAccounts[0].name}`,
+        pay_date: `${billData.pay_date}`, 
+        pay_value: '', 
+      };
+      // Set Template to Payment Form Data
+      setPaymentForm(paymentTemplate);
+    }
+  }, [bankAccounts, billData]);
 
   //HANDLE PAYMENT VALUE CHANGE
   const handleChange = (e, index) => {
@@ -93,12 +98,27 @@ function PaymentForm({ user, onSubmit, billData }) {
       return;
     }
   
+    // Parse the pay_date from paymentForm to a Date object
+    const startDate = parseISO(paymentForm.pay_date);
+  
     payments.forEach((payment, index) => {
-      const updatedPaymentForm = {
+      const nextMonthDate = addMonths(startDate, index); // Add index months to start date
+  
+      // Format the date as needed
+      const formattedNextMonthDate = format(nextMonthDate, 'yyyy-MM-dd');
+  
+      const formData = {
         ...paymentForm,
-        pay_value: payment
+        pay_value: payment,
+        pay_date: formattedNextMonthDate // Update pay_date with the calculated date
       };
-      onSubmit(updatedPaymentForm, `payments/${user.id}`);
+  
+      console.log("Submitting payment form:");
+      console.log(formData);
+      console.log("Endpoint:");
+      console.log(`payments/${user.id}`);
+  
+      onSubmit(formData, `payments/${user.id}`);
     });
   };
 
@@ -118,7 +138,7 @@ function PaymentForm({ user, onSubmit, billData }) {
         ))}
       </select>}
       {/* Check if payments is not null before rendering */}
-      {payments && payments.map((payment, index) => (
+      {paymentForm && payments && payments.map((payment, index) => (
         <PaymentCard key={index} payment={payment} onChange={(e) => handleChange(e, index)} paymentForm={paymentForm} />
       ))}
       <button onClick={handlePaymentSubmit}>Submit Payments</button>
