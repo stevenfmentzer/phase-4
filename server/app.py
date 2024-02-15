@@ -65,7 +65,6 @@ def register():
         if request.headers.get("Content-Type") == 'application/json':
             form_data = request.get_json()
         else: 
-       
             form_data = request.form
             
         existing_user = User.query.filter(User.username == form_data['username']).first()
@@ -120,11 +119,11 @@ def user_by_id(id):
     return response    
 
 #### BILLS ####
-@app.route('/bills', methods=['GET','POST'])
-def user_bills():
+@app.route('/bills/<int:id>', methods=['GET','POST'])
+def user_bills(id):
     try: 
         if request.method == 'GET':
-            bills = [bill.to_dict() for bill in Bill.query.filter(Bill.user_id == session["user"]).all()]
+            bills = [bill.to_dict() for bill in Bill.query.filter(Bill.user_id == id).all()]
             response = make_response(bills, 200)
         elif request.method == 'POST':
             print("POST")
@@ -222,6 +221,7 @@ def user_banks(id):
     except Exception as e:
         print("Exception:", e)
         response = make_response({"ERROR" : e },404)
+    print(banks)
     return response
 
 
@@ -254,11 +254,11 @@ def bank_by_id(id):
     return response
 
 #### INCOMES ####
-@app.route('/incomes', methods=['GET','POST'])
-def user_incomes():
+@app.route('/incomes/<int:id>', methods=['GET','POST'])
+def user_incomes(id):
     try:
         if request.method == 'GET':
-            incomes = [income.to_dict() for income in Income.query.filter(Income.user_id == session["user"]).all()]
+            incomes = [income.to_dict() for income in Income.query.filter(Income.user_id == id).all()]
             response = make_response(incomes, 200)
         elif request.method == 'POST':
             if request.headers.get("Content-Type") == 'application/json':
@@ -321,11 +321,11 @@ def get_payments_for_user(user_id):
         print("Exception:", e)
     return payments
 
-@app.route('/payments', methods=['GET','POST'])
-def user_payments():
+@app.route('/payments/<int:id>', methods=['GET','POST'])
+def user_payments(id):
     try:
         if request.method == 'GET':
-            payments = [payment.to_dict() for payment in get_payments_for_user(session["user"])]
+            payments = [payment.to_dict() for payment in get_payments_for_user(id)]
             response = make_response(payments, 200)
         elif request.method == 'POST':
             if request.headers.get("Content-Type") == 'application/json':

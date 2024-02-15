@@ -18,7 +18,7 @@ function IncomeForm({ user, onSubmit }) {
     user_id: `${user.id}`,
     bank_account_id: '',
     pay_value: '',
-    pay_freq: '',
+    pay_freq: '1',
   });
 
   const handleChange = (e) => {
@@ -27,7 +27,7 @@ function IncomeForm({ user, onSubmit }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(formData, 'incomes');
+    onSubmit(formData, `incomes/${user.id}`);
   };
 
   return (

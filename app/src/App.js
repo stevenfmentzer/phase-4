@@ -1,5 +1,4 @@
 import { React, useState, useEffect } from "react";
-import './App.css';
 import NavBar from "./components/NavBar.js";
 import Login from './pages/Login.js';
 import CreditScape from './pages/CreditScape.js';
@@ -34,15 +33,11 @@ function App() {
   return (
     <div>
       <NavBar user={user} handleLogout={handleLogout}/>
-      {enterSite ? (
-      <></>
-       ) : (
-      <>
+      {!enterSite &&
       <Login user={user} onLogin={setUser} setEnterSite={setEnterSite}/>
-      </>
-       )}
+       }
        {user &&
-         <CreditScape/>
+         <CreditScape user={user}/>
         }
     </div>
   )
