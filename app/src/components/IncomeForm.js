@@ -12,7 +12,7 @@ function IncomeForm({ user, onSubmit }) {
             response.json().then(setBankAccounts)}})
     .catch(error => {
     console.error('Error fetching bank accounts:', error)})
-    }, []);
+    }, [user.id]);
 
   const [formData, setFormData] = useState({
     user_id: `${user.id}`,

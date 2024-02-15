@@ -242,7 +242,7 @@ class Payment(db.Model, SerializerMixin):
         if key == 'pay_date':
             if isinstance(value, str): 
                 # Convert string to datetime.date object
-                value = datetime.strptime(value, '%m-%d-%Y').date()
+                value = datetime.strptime(value, '%Y-%m-%d').date()
             elif isinstance(value, datetime):
                 # Extract date component from datetime object
                 value = value.date()

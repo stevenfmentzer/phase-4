@@ -36,7 +36,7 @@ function App() {
       {!enterSite &&
       <Login user={user} onLogin={setUser} setEnterSite={setEnterSite}/>
        }
-       {user &&
+       {user && enterSite &&
          <CreditScape user={user}/>
         }
     </div>

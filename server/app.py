@@ -2,6 +2,7 @@ from flask import Flask, abort, session, redirect, url_for, make_response, reque
 from models import db, User, BankAccount, Bill, Income, Payment
 #Import database and application from config.py
 from config import app, db
+import math
 
 
 ######### ROUTES / VIEWS #########
@@ -144,7 +145,7 @@ def user_bills(id):
                             min_pay_value = form_data['min_pay_value'],
                             apr_rate = form_data['apr_rate']
                             )
-            
+        
             db.session.add(new_bill)
             db.session.commit()
 

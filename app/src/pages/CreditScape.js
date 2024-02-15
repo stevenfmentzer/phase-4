@@ -19,7 +19,7 @@ function CreditScape({ user }){
             response.json().then(setBillList)}})
     .catch(error => {
     console.error('Error fetching bill list:', error)})
-    }, []);
+    }, [user.id]);
 
     useEffect(() => {
         fetch(`http://localhost:5555/banks/${user.id}`)
@@ -28,7 +28,7 @@ function CreditScape({ user }){
             response.json().then(setBankList)}})
     .catch(error => {
     console.error('Error fetching bank list:', error)})
-    }, []);
+    }, [user.id]);
 
     useEffect(() => {
         fetch(`http://localhost:5555/incomes/${user.id}`)
@@ -37,7 +37,7 @@ function CreditScape({ user }){
             response.json().then(setIncomeList)}})
     .catch(error => {
     console.error('Error fetching income list:', error)})
-    }, []);
+    }, [user.id]);
 
     useEffect(() => {
         fetch(`http://localhost:5555/payments/${user.id}`)
@@ -46,21 +46,13 @@ function CreditScape({ user }){
             response.json().then(setPaymentList)}})
     .catch(error => {
     console.error('Error fetching income list:', error)})
-    }, []);
+    }, [user.id]);
 
 
     return(
       <>
         <div>CreditScape Main Body</div>
         <div>
-          {/* Render incomeList */}
-          <h2>Income List</h2>
-          <div>
-            {incomeList.map((income, index) => (
-              <IncomeCard key={index} income={income} />
-            ))}
-          </div>
-
           {/* Render billList */}
           <h2>Bill List</h2>
           <div>
@@ -74,6 +66,14 @@ function CreditScape({ user }){
           <div>
             {bankList.map((bank, index) => (
               <BankCard key={index} bank={bank} />
+            ))}
+          </div>
+
+          {/* Render incomeList */}
+          <h2>Income List</h2>
+          <div>
+            {incomeList.map((income, index) => (
+              <IncomeCard key={index} income={income} />
             ))}
           </div>
 
