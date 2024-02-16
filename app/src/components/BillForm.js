@@ -27,6 +27,8 @@ function BillForm({ user, onSubmit }) {
   };
 
   return (
+    <div>
+    <h3>Add New Bill</h3>
     <form onSubmit={handleSubmit}>
       <input type="text" name="name" placeholder="Name" onChange={handleChange} />
       <input type="text" name="lender_name" placeholder="Lender Name" onChange={handleChange} />
@@ -47,6 +49,7 @@ function BillForm({ user, onSubmit }) {
       </select>
       <button type="submit">Submit</button>
     </form>
+    </div>
   );
 }
 
