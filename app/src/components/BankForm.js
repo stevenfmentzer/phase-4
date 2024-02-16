@@ -19,11 +19,14 @@ function BankForm({ user, onSubmit }) {
   };
   
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" name="name" placeholder="account name" onChange={handleChange} />
-      <input type="number" name="balance" placeholder="balance" onChange={handleChange} />
-      <button type="submit">Submit</button>
-    </form>
+    <div>
+      <h3>Add New Bank</h3>
+      <form onSubmit={handleSubmit}>
+        <input type="text" name="name" placeholder="account name" onChange={handleChange} />
+        <input type="number" name="balance" placeholder="balance" onChange={handleChange} />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
   );
 }
 

@@ -31,6 +31,8 @@ function IncomeForm({ user, onSubmit }) {
   };
 
   return (
+    <div>
+    <h3>Add New Job</h3>
     <form onSubmit={handleSubmit}>
       <input type="number" name="pay_value" placeholder="Salary" onChange={handleChange} />
       <div>
@@ -57,6 +59,7 @@ function IncomeForm({ user, onSubmit }) {
       </select>
       <button type="submit">Submit</button>
     </form>
+    </div>
   );
 }
 
