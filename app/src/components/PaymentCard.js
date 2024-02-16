@@ -6,11 +6,11 @@ const PaymentCard = ({ key, payment, onChange, paymentForm }) => {
   return (
     <Card>
       <Card.Content>
-        <Card.Header>{`Payment ()`}</Card.Header>
+        <Card.Header>{`Payment for Bill: ${paymentForm.bill_id}`}</Card.Header>
         <Card.Meta>Payment</Card.Meta>
         <Card.Description>
           <p>Bank Account ID: {}</p>
-          <p>Pay Date: {}</p>
+          <p>Pay Date: {paymentForm.pay_date}</p>
           <p>
             Pay Value: 
             <Input

@@ -8,20 +8,32 @@ function App() {
   const [enterSite, setEnterSite] = useState(false);
 
   useEffect(() => {
-    // auto-login
-    fetch("http://localhost:5555/session")
-    .then((r) => {
-      if (r.ok) {
-        return r.json(); // parse response body as JSON
-      }
-      throw new Error('Failed to fetch user session');
-    })
-    .then((userData) => {
-      setUser(userData); // update user state with fetched user data
-    })
-    .catch((error) => {
-      console.error('Error fetching user session:', error);
-    });
+    // Check localStorage for JWT token
+    const authToken = localStorage.getItem('authToken');
+    if (authToken) {
+      // Send token to server to verify validity
+      fetch("http://localhost:5555/session", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ token: authToken }) // Include token in the request body
+      })
+      .then((response) => {
+        if (response.ok) {
+          return response.json(); // parse response body as JSON
+        }
+        throw new Error('Failed to verify user session');
+      })
+      .then((userData) => {
+        setUser(userData); // update user state with fetched user data
+      })
+      .catch((error) => {
+        console.error('Error verifying user session:', error);
+        // Clear invalid token from localStorage
+        localStorage.removeItem('authToken');
+      });
+    }
   }, []);
 
   function handleLogout() {

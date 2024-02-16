@@ -11,13 +11,19 @@ Transform your finances with a dynamic and interactive payment strategy. Integra
 1. Fork and clone Git repository
 2. Navigate to base directory in your terminal and run the following code: 
 
-    ```insert instructions```
-   
-    ```insert instructions```
+    ```pipenv install && pipenv shell```
+    
+3. Navigate to `server` directory in your terminal and run the following code: 
 
-    ```insert instructions```
+    ```export FLASK_APP=app.py```
+    
+    ```export FLASK_RUN_PORT=5555```
 
-4. Enjoy the program!
+4. Navigate to `client` directory in your terminal and run the following code: 
+
+    ```npm start```
+
+5. Enjoy the program!
 
 ## Backend (API)
 ### Model Relationships
@@ -38,7 +44,7 @@ Transform your finances with a dynamic and interactive payment strategy. Integra
 #### Users
 * `first_name` and `last_name` must be Strings under 20 characters
 * `username` must be 7-20 characters and not already exist
-* `password` must be 7-20 characters and include one `['!','@','#','$','%','^','&','*','(',')']`
+* `password` must be 7-20 characters`
 
 #### Banks
 * `name` is a String under 20 characters
@@ -136,6 +142,7 @@ https://www.figma.com/file/7xG34iBgHUY9qWnEbleQJg/Untitled?type=whiteboard&node-
 
 - **Python**: The primary language used for backend development.
 - **Flask**: A micro web framework written in Python.
+- **Flask-Bcrypt**: A data encryption package used to hide password values.
 - **React**: A JavaScript library for building user interfaces.
 - **REST APIs**: Handles requests and responses between the client and server.
 - **SQLAlchemy**: An SQL toolkit and Object-Relational Mapping (ORM) for Python.
