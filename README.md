@@ -15,6 +15,8 @@ Transform your finances with a dynamic and interactive payment strategy. Integra
     
 3. Navigate to `server` directory in your terminal and run the following code: 
 
+    ```python seed.py```
+
     ```export FLASK_APP=app.py```
     
     ```export FLASK_RUN_PORT=5555```
